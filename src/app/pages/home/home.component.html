@@ -1,0 +1,16 @@
+<div class="container pb-3 pt-3" style="background-color: #F7F7F7; width: 100%; height: 100%;">
+
+    <div class="row justify-content-center">
+        <h3 class="h4">{{this.message}}</h3>
+    </div>
+    <!-- <div class="row justify-content-center mt-1">
+        <p class="lead">{{this.message}}</p>
+    </div> -->
+    <div class="row mb-3 justify-content-around" *ngIf="this.ok">
+        <input class="form-control col-6 text-center" type="text" value="{{this.namePaciente}}" disabled>
+        <button class="btn btn-success col-3" (click)="this.comenzar()">¡Si soy yo! Comenzar</button>
+    </div>
+    <!-- <hr class="my-4"> -->
+    <!-- <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+    <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a> -->
+</div>
