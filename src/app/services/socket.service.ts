@@ -11,4 +11,6 @@ export class SocketService {
   emitirLoginConsulta(data, callback?: Function){
     this.socket.emit('loginConsulta', data, callback);
   }
+
+
 }

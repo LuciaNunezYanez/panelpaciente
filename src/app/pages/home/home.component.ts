@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SocketService } from '../../services/socket.service';
 import { ConexionService } from '../../services/conexion.service';
 import { RouterLinkActive, ActivatedRoute, Router } from '@angular/router';
+import { SenalizacionService } from '../../services/senalizacion/senalizacion.service';
 
 @Component({
   selector: 'app-home',
@@ -15,7 +16,10 @@ export class HomeComponent implements OnInit {
   namePaciente: string;
   ok: Boolean;
   clave: string;
-  constructor(private _sk: SocketService, private _conexion: ConexionService, private routerActive: ActivatedRoute) {
+  constructor(private _sk: SocketService,
+     private _conexion: ConexionService, 
+     private routerActive: ActivatedRoute,
+     private _skSenalizacion: SenalizacionService) {
 
     this.routerActive.params.subscribe( (data: any) => {
       console.log(data.clave);
@@ -37,13 +41,13 @@ export class HomeComponent implements OnInit {
       this.ok = resp.ok;
       if(this.ok){
         this.namePaciente = resp.nombre + ' ' + resp.apellido_pat_paciente + ' ' + resp.apellido_mat_paciente;
-        this.skLoginConsulta();
+        // this.skLoginConsulta();
       }
     });
   }
 
   comenzar(){
-
+    this._skSenalizacion.emitirOferta('paciente', this.clave, 0);
   }
 
   skLoginConsulta(){
@@ -53,8 +57,12 @@ export class HomeComponent implements OnInit {
       status: 0
     };
 
-    this._sk.emitirLoginConsulta(data, function(respuesta) {
-      console.log(respuesta);
+    this._sk.emitirLoginConsulta(data, function(error, respuesta) {
+      if(error){
+        alert(error.message);
+      } else {
+        console.log(respuesta);
+      }
     });
   }
 }
