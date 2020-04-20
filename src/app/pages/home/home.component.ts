@@ -16,6 +16,13 @@ export class HomeComponent implements OnInit {
   namePaciente: string;
   ok: Boolean;
   clave: string;
+
+   // HTML Elements
+  vidLoc;
+
+
+
+  estatus: string;
   constructor(private _sk: SocketService,
      private _conexion: ConexionService, 
      private routerActive: ActivatedRoute,
@@ -24,12 +31,15 @@ export class HomeComponent implements OnInit {
     this.routerActive.params.subscribe( (data: any) => {
       console.log(data.clave);
       this.clave = data.clave;
+      this._sk.escucharCandidatos(this.clave);
       this.enviarClave(data.clave);
     });
 
+    // this._skSenalizacion.escucharCandidatos();
    }
 
   ngOnInit(): void {
+    this.vidLoc = document.getElementById('videoLocal');
     this.message = 'Por favor espere..'
     this.namePaciente = '';
     this.ok = false;
@@ -46,9 +56,14 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  comenzar(){
+  comenzar(){    
+    this._skSenalizacion.obtenerVideoLocal(this.vidLoc);
     this._skSenalizacion.emitirOferta('paciente', this.clave, 0);
   }
+
+  
+
+  
 
   skLoginConsulta(){
     const data = {

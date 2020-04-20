@@ -10,6 +10,14 @@
         <input class="form-control col-6 text-center" type="text" value="{{this.namePaciente}}" disabled>
         <button class="btn btn-success col-3" (click)="this.comenzar()">¡Si soy yo! Comenzar</button>
     </div>
+    <div class="row justify-content-center mb-3" *ngIf="this.ok">
+        <!-- value="{{this._skSenalizacion.estatusLabel}}" -->
+        <input class="form-control col-6 text-center" type="text" id="lblConsola" disabled>
+    </div>
+
+    <div class="row justify-content-center mb-4">
+        <video class="col-10" id="videoLocal" autoplay controls="true" #videoLocal style="width: 100% !important;"></video>
+    </div>
     <!-- <hr class="my-4"> -->
     <!-- <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
     <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a> -->
